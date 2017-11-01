@@ -27,7 +27,7 @@ from astropy.io import fits
 from numpy import array
 ################################################################################################
 
-class fileHandling(object):
+class loadingImages(object):
     
     def __init__(self):
         '''
@@ -58,7 +58,7 @@ class fileHandling(object):
         Open multiple images and save them to a numpy array
         '''
         #open image file
-        dirPath = fileHandling()
+        dirPath = loadingImages()
         try:
             dirLocation = dirPath.openDir()
         except IOError:
