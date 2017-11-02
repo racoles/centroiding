@@ -24,7 +24,7 @@ from tkinter import filedialog
 from ntpath import split, basename
 from glob import glob
 from astropy.io import fits
-from numpy import array, floor_divide, uint8, take, arange
+from numpy import array
 ################################################################################################
 
 class loadingImages(object):
