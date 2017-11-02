@@ -24,7 +24,7 @@ from tkinter import filedialog
 from ntpath import split, basename
 from glob import glob
 from astropy.io import fits
-from numpy import array
+from numpy import array, floor_divide, uint8, take, arange
 ################################################################################################
 
 class loadingImages(object):
@@ -67,3 +67,23 @@ class loadingImages(object):
         fitsImages = [fits.getdata(image) for image in filelist]
         #convert to 4D numpy array
         return array(fitsImages), filelist
+    
+    def _convert16to8bit(self, image, display_min, display_max): 
+        # Here I set copy=True in order to ensure the original image is not
+        # modified. If you don't mind modifying the original image, you can
+        # set copy=False or skip this step.
+        image = array(image, copy=True)
+        image.clip(display_min, display_max, out=image)
+        image -= display_min
+        floor_divide(image, (display_max - display_min + 1) / 256,
+                    out=image, casting='unsafe')
+        return image.astype(uint8)
+    
+    def convert16to8bit_LUT(self, image, display_min, display_max) :
+        '''
+        Look Up Table for convert16to8bit. Makes convert16to8bit twice as fast
+        '''
+        lut = arange(2**16, dtype='uint16')
+        lut = self._convert16to8bit(lut, display_min, display_max)
+        return take(lut, image)
+        #Look Up Table for convert16to8bit. Makes convert16to8bit twice as fast
