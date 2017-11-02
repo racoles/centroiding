@@ -67,14 +67,3 @@ class loadingImages(object):
         fitsImages = [fits.getdata(image) for image in filelist]
         #convert to 4D numpy array
         return array(fitsImages), filelist
-    
-    def convert16to8bit(self, image, display_min, display_max): 
-        # Here I set copy=True in order to ensure the original image is not
-        # modified. If you don't mind modifying the original image, you can
-        # set copy=False or skip this step.
-        image = array(image, copy=True)
-        image.clip(display_min, display_max, out=image)
-        image -= display_min
-        floor_divide(image, (display_max - display_min + 1) / 256,
-                    out=image, casting='unsafe')
-        return image.astype(uint8)
