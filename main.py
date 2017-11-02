@@ -9,7 +9,13 @@ This project is used to find the center of various circles present in an image.
 '''
 
 # Import #######################################################################################
+from loadingImages import loadingImages
+from centroidReticleImage import centroidReticleImage
 ################################################################################################
 
 if __name__ == '__main__':
-    pass
+    im = loadingImages()
+    cr = centroidReticleImage()
+    
+    images = im.openAllFITSImagesInDirectory()
+    circles = cr.findCentroid(images[0], 80)

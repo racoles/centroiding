@@ -25,7 +25,7 @@ class centroidReticleImage(object):
         Constructor
         '''
         
-    def findCentroid(self, image, minRadius, maxRadius):
+    def findCentroid(self, image, minRadius):
         '''
         Take a numpy array of an image and centroid the circles within
         '''
