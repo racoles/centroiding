@@ -86,4 +86,3 @@ class loadingImages(object):
         lut = arange(2**16, dtype='uint16')
         lut = self._convert16to8bit(lut, display_min, display_max)
         return take(lut, image)
-        #Look Up Table for convert16to8bit. Makes convert16to8bit twice as fast
