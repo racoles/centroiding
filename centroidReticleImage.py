@@ -14,9 +14,8 @@ findCentroid
 '''
 
 # Import #######################################################################################
-from cv2 import HoughCircles, HOUGH_GRADIENT, circle, rectangle, imshow, waitKey, putText, FONT_HERSHEY_SIMPLEX, cvtColor, COLOR_BGR2GRAY
-from numpy import round, hstack, copy
-#from loadingImages import loadingImages
+from cv2 import HoughCircles, HOUGH_GRADIENT, circle, rectangle, imshow, waitKey, putText, FONT_HERSHEY_SIMPLEX
+from numpy import round, hstack, copy, uint8
 ################################################################################################
 
 class centroidReticleImage(object):
@@ -30,18 +29,10 @@ class centroidReticleImage(object):
         '''
         Take a numpy array of an image and centroid the circles within
         '''
-        #Flatten image
-        print(image.shape)
+        #Copy image
         output = copy(image)
-        #Convert image from uint16 (FITS 16bit) to 8bit
-        #display_min = 1000
-        #display_max = 10000
-        #im = loadingImages()
-        #output = im.convert16to8bit(output, display_min, display_max)
-        #print(output.dtype)
-        #cimg = cvtColor(output, COLOR_GRAY2BGR)
-        #Find the circles
-        circles = HoughCircles(cvtColor(output, COLOR_BGR2GRAY), HOUGH_GRADIENT, 1.2, minRadius)
+        #Find the circles (convert image from uint16 (FITS 16bit) to 8bit)
+        circles = HoughCircles(uint8(output), HOUGH_GRADIENT, 1.2, minRadius)
         #Ensure at least some circles were found
         if circles is not None:
             #Convert the (x, y) coordinates and radius of the circles to integers
