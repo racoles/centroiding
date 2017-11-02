@@ -37,7 +37,6 @@ class centroidReticleImage(object):
         if circles is not None:
             #Convert the (x, y) coordinates and radius of the circles to integers
             circles = round(circles[0, :]).astype("int")
-            
             #Loop over the (x, y) coordinates and radius of the circles
             for (x, y, r) in circles:
                 #Draw the circle in the output image, then draw a rectangle
@@ -46,7 +45,6 @@ class centroidReticleImage(object):
                 rectangle(output, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
                 putText(output,"Centroid locations: " + '(' + str(x) + ',' + str(y) + ') r=' + str(r),
                          (0,0), FONT_HERSHEY_SIMPLEX, 4,(255,255,255),2)
-                
             # show the output image
             imshow("output", hstack([image, output]))
             waitKey(0)
