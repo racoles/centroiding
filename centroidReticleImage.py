@@ -15,7 +15,8 @@ findCentroid
 
 # Import #######################################################################################
 from cv2 import HoughCircles, HOUGH_GRADIENT, circle, rectangle, imshow, waitKey, putText, FONT_HERSHEY_SIMPLEX
-from numpy import round, copy, hstack, squeeze
+from numpy import round, hstack, copy
+from loadingImages import loadingImages
 ################################################################################################
 
 class centroidReticleImage(object):
@@ -30,7 +31,13 @@ class centroidReticleImage(object):
         Take a numpy array of an image and centroid the circles within
         '''
         #Flatten image
-        output = squeeze(image, axis=0)
+        print(image.shape)
+        output = copy(image)
+        #Convert image from uint16 (FITS 16bit) to 8bit
+        display_min = 1000
+        display_max = 10000
+        im = loadingImages()
+        output = im.convert16to8bit(output, display_min, display_max)
         print(output.dtype)
         #Find the circles
         circles = HoughCircles(image, HOUGH_GRADIENT, 1.2, minRadius)
