@@ -34,7 +34,8 @@ class centroidReticleImage(object):
         output = copy(image)
         print('Image dimensions: ', output.shape)
         #Find the circles (convert image from uint16 (FITS 16bit) to 8bit)
-        circles = HoughCircles(uint8(output), HOUGH_GRADIENT, 4, 100, minRadius, maxRadius)
+        #circles = HoughCircles(uint8(output), HOUGH_GRADIENT, 4, 100, minRadius, maxRadius)
+        circles = HoughCircles(uint8(output), HOUGH_GRADIENT, 1, 10, 10, 10, minRadius, maxRadius)
         #Ensure at least some circles were foundIMREAD_COLOR
         if circles is not None:
             print('found circles')
