@@ -31,11 +31,11 @@ class centroidReticleImage(object):
         Take a numpy array of an image and centroid the circles within
         '''
         #Copy image
-        output = copy(image[rowsMin:rowsMax, columnsMin:columnsMax])
+        output = copy(-1*image[rowsMin:rowsMax, columnsMin:columnsMax])
         print('Image dimensions: ', output.shape)
         #Find the circles (convert image from uint16 (FITS 16bit) to 8bit)
         #circles = HoughCircles(uint8(output), HOUGH_GRADIENT, 4, 100, minRadius, maxRadius)
-        circles = HoughCircles(uint8(output), HOUGH_GRADIENT, 1.2, 400, 10, 10, minRadius, maxRadius)
+        circles = HoughCircles(uint8(output), HOUGH_GRADIENT, 1, 400, 10, 10, minRadius, maxRadius)
         #Ensure at least some circles were foundIMREAD_COLOR
         if circles is not None:
             print('found circles')
@@ -50,8 +50,8 @@ class centroidReticleImage(object):
                 #Corresponding to the center of the circle
                 circle(outputColor, (x, y), r, (0, 255, 0), 4)
                 rectangle(outputColor, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
-                putText(outputColor,"Centroid locations: " + '(' + str(x) + ',' + str(y) + ') r=' + str(r),
-                         (0,0), FONT_HERSHEY_SIMPLEX, 4,(255,255,255),2)
+                #putText(outputColor,"Centroid locations: " + '(' + str(x) + ',' + str(y) + ') r=' + str(r),
+                         #(0,0), FONT_HERSHEY_SIMPLEX, 4,(255,255,255),2)
             #Save Image
             toimage(outputColor, cmin=0.0).save('outfile.jpg')
         else:
