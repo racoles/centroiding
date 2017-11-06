@@ -18,4 +18,4 @@ if __name__ == '__main__':
     cr = centroidReticleImage()
     
     images, _ = im.openAllFITSImagesInDirectory()
-    circles = cr.findCentroid(images[0], 70, 100)
+    circles = cr.findCentroid(images[0], 10, 30, 0, 1000, 0, 700) #(image, minRadius, maxRadius, rowsMin, rowsMax, columnsMin, columnsMax)
