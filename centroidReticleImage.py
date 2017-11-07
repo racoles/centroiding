@@ -38,6 +38,9 @@ class centroidReticleImage(object):
         print('lower 60%:' + str(lowerValuePixels))
         higherValuePixels = percentile(output, 90)
         print('higher 90%:' + str(higherValuePixels))
+            #set contrast
+        [0 for ii in output if [ii] <= lowerValuePixels]
+        [9999 for jj in output if [jj] >= higherValuePixels]
         #Find the circles (convert image from uint16 (FITS 16bit) to 8bit)
         #circles = HoughCircles(uint8(output), HOUGH_GRADIENT, 4, 100, minRadius, maxRadius)
         circles = HoughCircles(uint8(output), HOUGH_GRADIENT, 1, 400, 1, 1, minRadius, maxRadius)
