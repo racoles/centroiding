@@ -43,7 +43,7 @@ class centroidReticleImage(object):
         #[65000 for kk in range(output.shape[0]) for ll in range(output.shape[1]) if output[kk,ll] >= higherValuePixels]
         #Find the circles (convert image from uint16 (FITS 16bit) to 8bit)
         #circles = HoughCircles(uint8(output), HOUGH_GRADIENT, 4, 100, minRadius, maxRadius)
-        circles = HoughCircles(uint8(output), HOUGH_GRADIENT, 1, 400, 100, 100, minRadius, maxRadius)
+        circles = HoughCircles((output/256).astype('uint8'), HOUGH_GRADIENT, 4, 100, 100, 100, minRadius, maxRadius)
         #Ensure at least some circles were foundIMREAD_COLOR
         if circles is not None:
             print('Found circles')
@@ -61,7 +61,7 @@ class centroidReticleImage(object):
                 putText(outputColor,"Centroid locations: " + '(' + str(x) + ',' + str(y) + ') r=' + str(r),
                          (rowsMax-15, 0), FONT_HERSHEY_SIMPLEX, 4,(255,255,255),2)
             #Save Image
-            toimage(outputColor, cmin=0.0).save('outfile.jpg')
+            toimage(outputColor, cmin=0.0).save('outfile.png')
             imwrite('test.png', output)
         else:
             print('No circles found')
