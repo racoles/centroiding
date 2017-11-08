@@ -11,7 +11,7 @@ a reticle from an image.
 Modules:
 findCentroid
     Take a numpy array of an image and centroid the circles within
-    Works: circles = HoughCircles((output/256).astype('uint8'), HOUGH_GRADIENT, 4, 100, 100, 100, minRadius, maxRadius) #WORKS
+    Works: circles = HoughCircles((output/256).astype('uint8'), HOUGH_GRADIENT, 4, 100, 100, 100, minRadius=1, maxRadius=75) #WORKS 11/8/2017
 '''
 
 # Import #######################################################################################
@@ -45,12 +45,17 @@ class centroidReticleImage(object):
         #[65000 for kk in range(output.shape[0]) for ll in range(output.shape[1]) if output[kk,ll] >= higherValuePixels]
         
         #Find the circles (convert image from uint16 (FITS 16bit) to 8bit)
-        circles = HoughCircles((output/256).astype('uint8'), HOUGH_GRADIENT, 4, 100, 100, 100, minRadius, maxRadius) #WORKS
-        #Ensure at least some circles were foundIMREAD_COLOR
+        circles = HoughCircles((output/256).astype('uint8'), HOUGH_GRADIENT, 4, 100, 100, 100, minRadius, maxRadius) #WORKS 11/8/2017
+        #Ensure at least some circles were found
         if circles is not None:
             print('Found circles')
             #Convert the (x, y) coordinates and radius of the circles to integers
             circles = round(circles[0, :]).astype("int")
+            print(circles)
+            #Find the circle closest to the center of the image
+            correctCircle = [rowsMax/2, columnsMax/2]
+                #calculate the  Euclidean distance between two 1-D arrays (circle centers and image center)
+            
             #Convert image to RGB
             output.resize((output.shape[0], output.shape[1], 1))
             outputColor = repeat(output.astype(uint8), 3, 2)
@@ -60,10 +65,10 @@ class centroidReticleImage(object):
                 #Corresponding to the center of the circle
                 circle(outputColor, (x, y), r, (0, 255, 0), 4)
                 rectangle(outputColor, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
-                putText(outputColor,"Centroid locations: " + '(' + str(x) + ',' + str(y) + ') r=' + str(r),
+                putText(outputColor,"Centroid location: " + '(' + str(x) + ',' + str(y) + ') r=' + str(r),
                          (rowsMax-15, 0), FONT_HERSHEY_SIMPLEX, 4,(255,255,255),2)
             #Save Image
             toimage(outputColor, cmin=0.0).save('outfile.png')
-            imwrite('test.png', output)
+            #imwrite('test.png', output)
         else:
             print('No circles found')
