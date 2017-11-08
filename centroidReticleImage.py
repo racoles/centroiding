@@ -52,11 +52,12 @@ class centroidReticleImage(object):
             print('Found circles')
             #Convert the (x, y) coordinates and radius of the circles to integers
             circles = round(circles[0, :]).astype("int")
-            print(circles)
             #Find the circle closest to the center of the image
                 #calculate the  Euclidean distances between two 1-D arrays (circle centers and image center)
             eDist = []
-            [eDist.append(distance.euclidean((rowsMax/2, columnsMax/2), (circles[ii][0], circles[ii][1]))) for ii in circles]
+            [eDist.append([distance.euclidean((rowsMax/2, columnsMax/2), (circles[ii][0], circles[ii][1])), ii]) for ii in range(circles.shape[0])]
+            minDist = min(eDist[:]) #min Euclidean distance
+            correctCircle = circles[minDist[1]][:] #circle corresponding to min Euclidean distance
             #Convert image to RGB
             output.resize((output.shape[0], output.shape[1], 1))
             outputColor = repeat(output.astype(uint8), 3, 2)
