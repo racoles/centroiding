@@ -19,6 +19,7 @@ from cv2 import HoughCircles, HOUGH_GRADIENT, circle, rectangle, COLOR_GRAY2RGB,
 from numpy import round, copy, repeat, uint16
 from scipy.misc import toimage
 from scipy.spatial import distance
+from astropy.nddata import CCDData
 ################################################################################################
 
 class centroidReticleImage(object):
@@ -53,12 +54,11 @@ class centroidReticleImage(object):
             #outputColor = repeat(output.astype(uint16), 3, 2)
             outputColor = cvtColor(output, COLOR_GRAY2RGB)
             #Draw the circle in the output image, then draw a rectangle corresponding to the center of the circle
-            circle(outputColor, (int(correctCircle[0]), int(correctCircle[1])), int(correctCircle[2]), (0, 255, 0), 4)
-            rectangle(outputColor, (int(correctCircle[0]) - 5, int(correctCircle[1]) - 5), (int(correctCircle[0]) + 5, int(correctCircle[1]) + 5), 
-                        (0, 128, 255), -1)
+            circle(outputColor, (int(correctCircle[0]), int(correctCircle[1])), int(correctCircle[2]), (9999, 9999, 9999), 4)
+            rectangle(outputColor, (int(correctCircle[0]) - 3, int(correctCircle[1]) - 3), (int(correctCircle[0]) + 3, int(correctCircle[1]) + 3), 
+                        (9999, 9999, 9999), -1)
             print("Centroid location: " + '(' + str(correctCircle[0]+rowsMin) + ',' + str(correctCircle[1]+columnsMin) + ') r=' + str(correctCircle[2]))
             #Save Image
-            print(outputColor)
             toimage(outputColor, cmin=0.0).save('outfile.png') #cmin=0.0
         else:
             print('No circles found')
