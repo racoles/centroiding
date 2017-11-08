@@ -14,8 +14,8 @@ findCentroid
 '''
 
 # Import #######################################################################################
-from cv2 import HoughCircles, HOUGH_GRADIENT, circle, rectangle, putText, FONT_HERSHEY_SIMPLEX, cvtColor, COLOR_GRAY2RGB
-from numpy import round, hstack, copy, uint8, array, uint16, repeat, percentile
+from cv2 import HoughCircles, HOUGH_GRADIENT, circle, rectangle, putText, FONT_HERSHEY_SIMPLEX, imwrite
+from numpy import round, copy, uint8, repeat, percentile
 from scipy.misc import toimage
 ################################################################################################
 
@@ -34,16 +34,16 @@ class centroidReticleImage(object):
         output = copy(image[rowsMin:rowsMax, columnsMin:columnsMax])
         print('Image dimensions: ', output.shape)
         #Image contrast
-        lowerValuePixels = percentile(output, 60)
-        print('lower 60%:' + str(lowerValuePixels))
-        higherValuePixels = percentile(output, 90)
-        print('higher 90%:' + str(higherValuePixels))
+        lowerValuePixels = percentile(output, 70)
+        print('Lowest 70%:' + str(lowerValuePixels))
+        higherValuePixels = percentile(output, 95)
+        print('Highest 95%:' + str(higherValuePixels))
             #set contrast
-        [0 for ii in output if [ii] <= lowerValuePixels]
-        [9999 for jj in output if [jj] >= higherValuePixels]
+        #[0 for ii in range(output.shape[0]) for jj in range(output.shape[1]) if output[ii,jj] <= lowerValuePixels]
+        #[65000 for kk in range(output.shape[0]) for ll in range(output.shape[1]) if output[kk,ll] >= higherValuePixels]
         #Find the circles (convert image from uint16 (FITS 16bit) to 8bit)
         #circles = HoughCircles(uint8(output), HOUGH_GRADIENT, 4, 100, minRadius, maxRadius)
-        circles = HoughCircles(uint8(output), HOUGH_GRADIENT, 1, 400, 1, 1, minRadius, maxRadius)
+        circles = HoughCircles(uint8(output), HOUGH_GRADIENT, 1, 400, 100, 100, minRadius, maxRadius)
         #Ensure at least some circles were foundIMREAD_COLOR
         if circles is not None:
             print('Found circles')
@@ -58,9 +58,10 @@ class centroidReticleImage(object):
                 #Corresponding to the center of the circle
                 circle(outputColor, (x, y), r, (0, 255, 0), 4)
                 rectangle(outputColor, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
-                #putText(outputColor,"Centroid locations: " + '(' + str(x) + ',' + str(y) + ') r=' + str(r),
-                         #(0,0), FONT_HERSHEY_SIMPLEX, 4,(255,255,255),2)
+                putText(outputColor,"Centroid locations: " + '(' + str(x) + ',' + str(y) + ') r=' + str(r),
+                         (rowsMax-15, 0), FONT_HERSHEY_SIMPLEX, 4,(255,255,255),2)
             #Save Image
             toimage(outputColor, cmin=0.0).save('outfile.jpg')
+            imwrite('test.png', output)
         else:
             print('No circles found')

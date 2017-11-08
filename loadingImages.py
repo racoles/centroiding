@@ -25,6 +25,7 @@ from ntpath import split, basename
 from glob import glob
 from astropy.io import fits
 from numpy import array
+from astropy.nddata import CCDData
 ################################################################################################
 
 class loadingImages(object):
