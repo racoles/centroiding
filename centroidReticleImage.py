@@ -19,7 +19,6 @@ from cv2 import HoughCircles, HOUGH_GRADIENT, circle, rectangle, COLOR_GRAY2RGB,
 from numpy import round, copy, repeat, uint16
 from scipy.misc import toimage
 from scipy.spatial import distance
-from astropy.nddata import CCDData
 ################################################################################################
 
 class centroidReticleImage(object):
