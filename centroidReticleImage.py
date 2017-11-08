@@ -15,8 +15,8 @@ findCentroid
 '''
 
 # Import #######################################################################################
-from cv2 import HoughCircles, HOUGH_GRADIENT, circle, rectangle, putText, FONT_HERSHEY_SIMPLEX
-from numpy import round, copy, uint8, repeat, percentile
+from cv2 import HoughCircles, HOUGH_GRADIENT, circle, rectangle
+from numpy import round, copy, uint8, repeat
 from scipy.misc import toimage
 from scipy.spatial import distance
 ################################################################################################
@@ -55,8 +55,7 @@ class centroidReticleImage(object):
             circle(outputColor, (correctCircle[0], correctCircle[1]), correctCircle[2], (0, 255, 0), 4)
             rectangle(outputColor, (correctCircle[0] - 5, correctCircle[1] - 5), (correctCircle[0] + 5, correctCircle[1] + 5), 
                         (0, 128, 255), -1)
-            putText(outputColor,"Centroid location: " + '(' + str(correctCircle[0]) + ',' + str(correctCircle[1]) + ') r=' + str(correctCircle[2]),
-                (output.shape[0]-15, 0), FONT_HERSHEY_SIMPLEX, 4,(255,255,255),2)
+            print("Centroid location: " + '(' + str(correctCircle[0]+rowsMin) + ',' + str(correctCircle[1]+columnsMin) + ') r=' + str(correctCircle[2]))
             #Save Image
             toimage(outputColor, cmin=0.0).save('outfile.png')
         else:
