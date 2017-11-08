@@ -35,16 +35,6 @@ class centroidReticleImage(object):
         #Copy image
         output = copy(image[rowsMin:rowsMax, columnsMin:columnsMax])
         print('Image dimensions: ', output.shape)
-        
-        #Image contrast
-        #lowerValuePixels = percentile(output, 70)
-        #print('Lowest 70%:' + str(lowerValuePixels))
-        #higherValuePixels = percentile(output, 95)
-        #print('Highest 95%:' + str(higherValuePixels))
-            #set contrast
-        #[0 for ii in range(output.shape[0]) for jj in range(output.shape[1]) if output[ii,jj] <= lowerValuePixels]
-        #[65000 for kk in range(output.shape[0]) for ll in range(output.shape[1]) if output[kk,ll] >= higherValuePixels]
-        
         #Find the circles (convert image from uint16 (FITS 16bit) to 8bit)
         circles = HoughCircles((output/256).astype('uint8'), HOUGH_GRADIENT, 4, 100, 100, 100, minRadius, maxRadius) #WORKS 11/8/2017
         #Ensure at least some circles were found
@@ -61,10 +51,7 @@ class centroidReticleImage(object):
             #Convert image to RGB
             output.resize((output.shape[0], output.shape[1], 1))
             outputColor = repeat(output.astype(uint8), 3, 2)
-            #Loop over the (x, y) coordinates and radius of the circles
-            #for (x, y, r) in circles:
-                #Draw the circle in the output image, then draw a rectangle
-                #Corresponding to the center of the circle
+            #Draw the circle in the output image, then draw a rectangle corresponding to the center of the circle
             circle(outputColor, (correctCircle[0], correctCircle[1]), correctCircle[2], (0, 255, 0), 4)
             rectangle(outputColor, (correctCircle[0] - 5, correctCircle[1] - 5), (correctCircle[0] + 5, correctCircle[1] + 5), 
                         (0, 128, 255), -1)
