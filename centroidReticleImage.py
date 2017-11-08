@@ -16,7 +16,7 @@ findCentroid
 
 # Import #######################################################################################
 from cv2 import HoughCircles, HOUGH_GRADIENT, circle, rectangle
-from numpy import round, copy, uint8, repeat
+from numpy import round, copy, repeat, uint16
 from scipy.misc import toimage
 from scipy.spatial import distance
 ################################################################################################
@@ -50,7 +50,7 @@ class centroidReticleImage(object):
             correctCircle = circles[minDist[1]][:] #circle corresponding to min Euclidean distance
             #Convert image to RGB
             output.resize((output.shape[0], output.shape[1], 1))
-            outputColor = repeat(output.astype(uint8), 3, 2)
+            outputColor = repeat(output.astype(uint16), 3, 2)
             #Draw the circle in the output image, then draw a rectangle corresponding to the center of the circle
             circle(outputColor, (int(correctCircle[0]), int(correctCircle[1])), int(correctCircle[2]), (0, 255, 0), 4)
             rectangle(outputColor, (int(correctCircle[0]) - 5, int(correctCircle[1]) - 5), (int(correctCircle[0]) + 5, int(correctCircle[1]) + 5), 
