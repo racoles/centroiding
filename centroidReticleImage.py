@@ -55,20 +55,21 @@ class centroidReticleImage(object):
             #Find the circle closest to the center of the image
                 #calculate the  Euclidean distances between two 1-D arrays (circle centers and image center)
             eDist = []
-            [eDist.append([distance.euclidean((rowsMax/2, columnsMax/2), (circles[ii][0], circles[ii][1])), ii]) for ii in range(circles.shape[0])]
+            [eDist.append([distance.euclidean((output.shape[0]/2, output.shape[1]/2), (circles[ii][0], circles[ii][1])), ii]) for ii in range(circles.shape[0])]
             minDist = min(eDist[:]) #min Euclidean distance
             correctCircle = circles[minDist[1]][:] #circle corresponding to min Euclidean distance
             #Convert image to RGB
             output.resize((output.shape[0], output.shape[1], 1))
             outputColor = repeat(output.astype(uint8), 3, 2)
             #Loop over the (x, y) coordinates and radius of the circles
-            for (x, y, r) in circles:
+            #for (x, y, r) in circles:
                 #Draw the circle in the output image, then draw a rectangle
                 #Corresponding to the center of the circle
-                circle(outputColor, (x, y), r, (0, 255, 0), 4)
-                rectangle(outputColor, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
-                putText(outputColor,"Centroid location: " + '(' + str(x) + ',' + str(y) + ') r=' + str(r),
-                         (rowsMax-15, 0), FONT_HERSHEY_SIMPLEX, 4,(255,255,255),2)
+            circle(outputColor, (correctCircle[0], correctCircle[1]), correctCircle[2], (0, 255, 0), 4)
+            rectangle(outputColor, (correctCircle[0] - 5, correctCircle[1] - 5), (correctCircle[0] + 5, correctCircle[1] + 5), 
+                        (0, 128, 255), -1)
+            putText(outputColor,"Centroid location: " + '(' + str(correctCircle[0]) + ',' + str(correctCircle[1]) + ') r=' + str(correctCircle[2]),
+                (output.shape[0]-15, 0), FONT_HERSHEY_SIMPLEX, 4,(255,255,255),2)
             #Save Image
             toimage(outputColor, cmin=0.0).save('outfile.png')
         else:
