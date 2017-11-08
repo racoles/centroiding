@@ -34,14 +34,16 @@ class centroidReticleImage(object):
         #Copy image
         output = copy(image[rowsMin:rowsMax, columnsMin:columnsMax])
         print('Image dimensions: ', output.shape)
+        
         #Image contrast
-        lowerValuePixels = percentile(output, 70)
-        print('Lowest 70%:' + str(lowerValuePixels))
-        higherValuePixels = percentile(output, 95)
-        print('Highest 95%:' + str(higherValuePixels))
+        #lowerValuePixels = percentile(output, 70)
+        #print('Lowest 70%:' + str(lowerValuePixels))
+        #higherValuePixels = percentile(output, 95)
+        #print('Highest 95%:' + str(higherValuePixels))
             #set contrast
         #[0 for ii in range(output.shape[0]) for jj in range(output.shape[1]) if output[ii,jj] <= lowerValuePixels]
         #[65000 for kk in range(output.shape[0]) for ll in range(output.shape[1]) if output[kk,ll] >= higherValuePixels]
+        
         #Find the circles (convert image from uint16 (FITS 16bit) to 8bit)
         circles = HoughCircles((output/256).astype('uint8'), HOUGH_GRADIENT, 4, 100, 100, 100, minRadius, maxRadius) #WORKS
         #Ensure at least some circles were foundIMREAD_COLOR
