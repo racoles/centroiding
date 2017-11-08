@@ -41,7 +41,7 @@ class centroidReticleImage(object):
         if circles is not None:
             print('Found circles')
             #Convert the (x, y) coordinates and radius of the circles to integers
-            circles = round(circles[0, :]).astype("int")
+            circles = round(circles[0, :]).astype("float")
             #Find the circle closest to the center of the image
                 #calculate the  Euclidean distances between two 1-D arrays (circle centers and image center)
             eDist = []
@@ -52,8 +52,8 @@ class centroidReticleImage(object):
             output.resize((output.shape[0], output.shape[1], 1))
             outputColor = repeat(output.astype(uint8), 3, 2)
             #Draw the circle in the output image, then draw a rectangle corresponding to the center of the circle
-            circle(outputColor, (correctCircle[0], correctCircle[1]), correctCircle[2], (0, 255, 0), 4)
-            rectangle(outputColor, (correctCircle[0] - 5, correctCircle[1] - 5), (correctCircle[0] + 5, correctCircle[1] + 5), 
+            circle(outputColor, (int(correctCircle[0]), int(correctCircle[1])), int(correctCircle[2]), (0, 255, 0), 4)
+            rectangle(outputColor, (int(correctCircle[0]) - 5, int(correctCircle[1]) - 5), (int(correctCircle[0]) + 5, int(correctCircle[1]) + 5), 
                         (0, 128, 255), -1)
             print("Centroid location: " + '(' + str(correctCircle[0]+rowsMin) + ',' + str(correctCircle[1]+columnsMin) + ') r=' + str(correctCircle[2]))
             #Save Image
