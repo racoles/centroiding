@@ -15,9 +15,10 @@ findCentroid
 '''
 
 # Import #######################################################################################
-from cv2 import HoughCircles, HOUGH_GRADIENT, circle, rectangle, putText, FONT_HERSHEY_SIMPLEX, imwrite
+from cv2 import HoughCircles, HOUGH_GRADIENT, circle, rectangle, putText, FONT_HERSHEY_SIMPLEX
 from numpy import round, copy, uint8, repeat, percentile
 from scipy.misc import toimage
+from scipy.spatial import distance
 ################################################################################################
 
 class centroidReticleImage(object):
@@ -53,9 +54,9 @@ class centroidReticleImage(object):
             circles = round(circles[0, :]).astype("int")
             print(circles)
             #Find the circle closest to the center of the image
-            correctCircle = [rowsMax/2, columnsMax/2]
-                #calculate the  Euclidean distance between two 1-D arrays (circle centers and image center)
-            
+                #calculate the  Euclidean distances between two 1-D arrays (circle centers and image center)
+            eDist = []
+            [eDist.append(distance.euclidean((rowsMax/2, columnsMax/2), (circles[ii][0], circles[ii][1]))) for ii in circles]
             #Convert image to RGB
             output.resize((output.shape[0], output.shape[1], 1))
             outputColor = repeat(output.astype(uint8), 3, 2)
@@ -69,6 +70,5 @@ class centroidReticleImage(object):
                          (rowsMax-15, 0), FONT_HERSHEY_SIMPLEX, 4,(255,255,255),2)
             #Save Image
             toimage(outputColor, cmin=0.0).save('outfile.png')
-            #imwrite('test.png', output)
         else:
             print('No circles found')
