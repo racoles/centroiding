@@ -136,7 +136,6 @@ class centroidPinHoleImage(object):
             xcen[i] = -1
             ycen[i] = -1
             print('Position '+ pos + ' moved too near edge of image')
-            continue
 
         # Extract smaller 'STRBOX' sized subimage centered on maximum pixel
         strbox = image[int(ymax-nhalf) : int(ymax+nhalf+1), int(xmax-nhalf) : int(xmax+nhalf+1)]
@@ -160,13 +159,11 @@ class centroidPinHoleImage(object):
             xcen[i]=-1
             ycen[i]=-1
             print('Unable to compute X centroid around position '+ pos)
-            continue
         dx = sumxsq*sumd/(sumc*sumxd)
         if np.abs(dx) > nhalf:    # Reject if centroid outside box
             xcen[i]=-1
             ycen[i]=-1
             print('Computed X centroid for position '+ pos + ' out of range')
-            continue
         xcen[i] = xmax - dx    # X centroid in original array
 
         #  Find Y Centroid
@@ -180,13 +177,11 @@ class centroidPinHoleImage(object):
             xcen[i] = -1
             ycen[i] = -1
             print('Unable to compute Y centroid around position '+ pos)
-            continue
         dy = sumxsq*sumd/(sumc*sumxd)
         if np.abs(dy) > nhalf:  # Reject if computed Y centroid outside box
             xcen[i]=-1
             ycen[i]=-1
             print('Computed Y centroid for position '+ pos + ' out of range')
-            continue
         ycen[i] = ymax-dy
 
         if npts == 1:
