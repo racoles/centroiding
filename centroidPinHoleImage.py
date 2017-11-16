@@ -20,10 +20,18 @@ findCentroid
     Compute the centroid of a star using a derivative search 
     (adapted for IDL from DAOPHOT, then translated from IDL to Python).
     
+    Maximum pixel within distance from input pixel X, Y  determined
+    from FHWM is found and used as the center of a square, within
+    which the centroid is computed as the value (XCEN,YCEN) at which
+    the derivatives of the partial sums of the input image over (y,x)
+    with respect to (x,y) = 0.  In order to minimize contamination from
+    neighboring stars stars, a weighting factor W is defined as unity in
+    center, 0.5 at end, and linear in between.
+    
     Values for xcen and ycen will not be computed if the computed
     centroid falls outside of the box, or if the computed derivatives
     are non-decreasing.   If the centroid cannot be computed, then a 
-    xcen and ycen are set to -1 and a message is displayed
+    xcen and ycen are set to -1 and a message is displayed.
 '''
 
 # Import #######################################################################################
