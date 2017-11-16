@@ -45,7 +45,7 @@ class centroidPinHoleImage(object):
         '''
         Constructor
         '''
-    def findCentroid(self, image, x, y, fwhm, extendbox = False):
+    def findCentroid(self, image, x, y, extendbox = False):
         '''
         Take a numpy array of an image and centroid the pinholes within
         Compute the centroid of a star using a derivative search 
@@ -66,6 +66,8 @@ class centroidPinHoleImage(object):
         sz_image = np.shape(image)
         xsize = sz_image[1]
         ysize = sz_image[0]
+        
+        #find fwhm
 
         # Compute size of box needed to compute centroid
         if not extendbox: extendbox = 0

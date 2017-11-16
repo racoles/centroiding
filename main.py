@@ -11,11 +11,14 @@ This project is used to find the center of various circles present in an image.
 # Import #######################################################################################
 from loadingImages import loadingImages
 from centroidReticleImage import centroidReticleImage
+from centroidPinHoleImage import centroidPinHoleImage
 ################################################################################################
 
 if __name__ == '__main__':
     im = loadingImages()
-    cr = centroidReticleImage()
+    #cr = centroidReticleImage()
+    cp = centroidPinHoleImage()
     
     images, _ = im.openAllFITSImagesInDirectory()
-    circles = cr.findCentroid(images[0], 1, 75, 390, 580, 300, 500) #(image, minRadius, maxRadius, rowsMin, rowsMax, columnsMin, columnsMax)
+    #circles = cr.findCentroid(images[0], 1, 75, 390, 580, 300, 500) #(image, minRadius, maxRadius, rowsMin, rowsMax, columnsMin, columnsMax)
+    pinhole = cp.findCentroid(image, x, y, extendbox)
