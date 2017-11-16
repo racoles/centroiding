@@ -21,6 +21,4 @@ if __name__ == '__main__':
     
     images, _ = im.openAllFITSImagesInDirectory()
     #circles = cr.findCentroid(images[0], 1, 75, 390, 580, 300, 500) #(image, minRadius, maxRadius, rowsMin, rowsMax, columnsMin, columnsMax)
-    
-    for
-    pinhole = cp.findCentroid(image, x, y, extendbox)
+    pinhole = cp.findCentroid(images[0], 156, 95)
