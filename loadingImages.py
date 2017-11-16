@@ -1,7 +1,7 @@
 '''
 @title loadingImages
 @author: Rebecca Coles
-Updated on Nov 1, 2017
+Updated on Nov 16, 2017
 Created on Nov 1, 2017
 
 loadingImages
@@ -25,7 +25,6 @@ from ntpath import split, basename
 from glob import glob
 from astropy.io import fits
 from numpy import array
-from astropy.nddata import CCDData
 ################################################################################################
 
 class loadingImages(object):

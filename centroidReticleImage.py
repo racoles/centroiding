@@ -1,7 +1,7 @@
 '''
 @title centroidReticleImage
 @author: Rebecca Coles
-Updated on Nov 3, 2017
+Updated on Nov 16, 2017
 Created on Nov 1, 2017
 
 centroidReticleImage
@@ -16,7 +16,7 @@ findCentroid
 
 # Import #######################################################################################
 from cv2 import HoughCircles, HOUGH_GRADIENT, circle, rectangle, COLOR_GRAY2RGB, cvtColor
-from numpy import round, copy, repeat, uint16
+from numpy import round, copy
 from scipy.misc import toimage
 from scipy.spatial import distance
 ################################################################################################
