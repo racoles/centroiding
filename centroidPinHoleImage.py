@@ -68,6 +68,13 @@ class centroidPinHoleImage(object):
         ysize = sz_image[0]
         
         #find fwhm
+        maxi = np.amax(image)
+        floor = np.median(image.flatten())
+        height = maxi - floor
+        if height == 0.0: # if object is saturated it could be that median value is 32767 or 65535 --> height=0
+            floor = np.mean(image.flatten())
+            height = maxi - floor
+        fwhm = np.sqrt(sum((image>floor+height/2.).flatten()))        
 
         # Compute size of box needed to compute centroid
         if not extendbox: extendbox = 0
