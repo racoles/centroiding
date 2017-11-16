@@ -181,6 +181,6 @@ class centroidReticleImage(object):
             continue
         ycen[i] = ymax-dy
 
-    if npts == 1:
-        xcen,ycen = xcen[0],ycen[0]
-    return(xcen,ycen)
+        if npts == 1:
+            xcen,ycen = xcen[0],ycen[0]
+        return(xcen,ycen)
