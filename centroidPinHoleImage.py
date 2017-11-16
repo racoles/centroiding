@@ -6,18 +6,17 @@ Created on Nov 16, 2017
 
 centroidPinHoleImage
 This module holds a series of functions used to find the center of
-an illuminated pin hole from an image.
+an illuminated pin hole from an image using code that was originally
+from the IDL Astronomy Users Library.
 
 Modules:
 findCentroid
-    Take a numpy array of an image and centroid the pinholes within
+    Take a numpy array of an image and centroid the pinholes within.
+    This code is from the IDL Astronomy Users Library.
 '''
 
 # Import #######################################################################################
-from cv2 import HoughCircles, HOUGH_GRADIENT, circle, rectangle, COLOR_GRAY2RGB, cvtColor
-from numpy import round, copy, repeat, uint16
-from scipy.misc import toimage
-from scipy.spatial import distance
+import numpy as np
 ################################################################################################
 
 class centroidReticleImage(object):
@@ -29,4 +28,5 @@ class centroidReticleImage(object):
     def findCentroid(self, image, minRadius, maxRadius, rowsMin, rowsMax, columnsMin, columnsMax):
         '''
         Take a numpy array of an image and centroid the pinholes within
+        This code is from the IDL Astronomy Users Library
         ''' 
