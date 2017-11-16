@@ -39,7 +39,7 @@ findCentroid
 import numpy as np
 ################################################################################################
 
-class centroidReticleImage(object):
+class centroidPinHoleImage(object):
     
     def __init__(self):
         '''
