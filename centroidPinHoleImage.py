@@ -53,8 +53,7 @@ class centroidPinHoleImage(object):
         
         image  - 2D numpy array
         x,y  -  Integers giving approximate pin hole center
-        fwhm -  float value for full-width-half-maximum. The centroid 
-                is computed using a box of half width equal to 1.5 sigma = 0.637* fwhm.
+                The centroid is computed using a box of half width equal to 1.5 sigma = 0.637* fwhm.
         extendbox -  {non-negative positive integer}. findCentroid searches a box with
                        a half width equal to 1.5 sigma  = 0.637* FWHM to find the
                        maximum pixel. To search a larger area, set extendbox to
