@@ -19,6 +19,11 @@ findCentroid
     Take a numpy array of an image and centroid the pinholes within.
     Compute the centroid of a star using a derivative search 
     (adapted for IDL from DAOPHOT, then translated from IDL to Python).
+    
+    Values for xcen and ycen will not be computed if the computed
+    centroid falls outside of the box, or if the computed derivatives
+    are non-decreasing.   If the centroid cannot be computed, then a 
+    xcen and ycen are set to -1 and a message is displayed
 '''
 
 # Import #######################################################################################
@@ -31,7 +36,7 @@ class centroidReticleImage(object):
         '''
         Constructor
         '''
-    def findCentroid(self, image, x, y, fwhm):
+    def findCentroid(self, image, x, y, fwhm, extendbox = False):
         '''
         Take a numpy array of an image and centroid the pinholes within
         Compute the centroid of a star using a derivative search 
@@ -41,5 +46,10 @@ class centroidReticleImage(object):
         x,y  -  Integers giving approximate pin hole center
         fwhm -  float value for full-width-half-maximum. The centroid 
                 is computed using a box of half width equal to 1.5 sigma = 0.637* fwhm.
-
+        extendbox -  {non-negative positive integer}.   CNTRD searches a box with
+                       a half width equal to 1.5 sigma  = 0.637* FWHM to find the
+                       maximum pixel.    To search a larger area, set extendbox to
+                       the number of pixels to enlarge the half-width of the box.
+                       A list/array of [X,Y] coordinates defines a rectangle.
+                       Default is 0; prior to June 2004, the default was extendbox = 3
         ''' 
