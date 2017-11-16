@@ -7,7 +7,8 @@ Created on Nov 16, 2017
 centroidPinHoleImage
 This module holds a series of functions used to find the center of
 an illuminated pin hole from an image using code that was adapted
-from the IDL Astronomy Users Library.
+from the IDL Astronomy Users Library. Original python conversion
+by David Jones.
 
 Compute the centroid of a star using a derivative search (adapted 
 for IDL from DAOPHOT, then translated from IDL to Python).
