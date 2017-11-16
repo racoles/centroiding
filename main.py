@@ -19,7 +19,8 @@ if __name__ == '__main__':
     #cr = centroidReticleImage()
     cp = centroidPinHoleImage()
     
-    images, _ = im.openAllFITSImagesInDirectory()
+    images, filelist = im.openAllFITSImagesInDirectory()
     #circles = cr.findCentroid(images[0], 1, 75, 390, 580, 300, 500) #(image, minRadius, maxRadius, rowsMin, rowsMax, columnsMin, columnsMax)
     pinhole = cp.findCentroid(images[0], 156, 95)
+    print(str(filelist[0]))
     print(pinhole)
